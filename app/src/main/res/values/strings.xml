@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DogsChallenge</string>
+    <string name="mas_datos">Mas datos</string>
+    <string name="otros_datos">Otros datos</string>
+</resources>
