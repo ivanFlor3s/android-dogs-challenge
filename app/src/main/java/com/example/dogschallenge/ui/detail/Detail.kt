@@ -76,9 +76,7 @@ fun Detail( navController: NavController, id: Int){
                     Text(text = stringResource(R.string.mas_datos), color = Color.White)
                 }
             }
-
         }
-
     }
 }
 

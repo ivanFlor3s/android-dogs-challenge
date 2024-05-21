@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface RetrofitService {
+interface CeoDogsApi {
     @GET("breeds/list/all")
     suspend fun listBreeds():CeoBreedsResponse
     @GET("breed/{breed}/images/random")
@@ -16,12 +16,12 @@ interface RetrofitService {
     ):ImageResponse
 }
 
-object RetrofitServiceFactory {
-    fun create(): RetrofitService {
+object CeoDogsApiFactory {
+    fun create(): CeoDogsApi {
         return Retrofit.Builder()
             .baseUrl("https://dog.ceo/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(RetrofitService::class.java)
+            .create(CeoDogsApi::class.java)
     }
 }

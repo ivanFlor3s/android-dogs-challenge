@@ -7,14 +7,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.dogschallenge.models.Dog
 import com.example.dogschallenge.navigation.MainDestinations
 import com.example.dogschallenge.ui.components.ItemList
+import com.example.dogschallenge.viewModels.DogViewModel
 
 
 public val perrasos = listOf(
@@ -40,8 +44,16 @@ public val perrasos = listOf(
 
 
 @Composable
-fun Home(navController: NavController){
-    DogsList(perrasos, navController )
+fun Home(navController: NavController, dogListViewModel: DogViewModel = viewModel() ){
+    val state = dogListViewModel.state
+    if (state.isLoading) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            CircularProgressIndicator()
+        }
+    }
+    if( !state.breeds.isEmpty()){
+        BreedsList(state.breeds)
+    }
 }
 
 
@@ -57,6 +69,22 @@ fun DogsList(dogs: List<Dog>,navController: NavController){
                 navController.navigate(MainDestinations.DETAIL_ROUTE + "/${dog.id}")
             }) {
                 ItemList(dog.name)
+            }
+        }
+    }
+}
+
+@Composable
+fun BreedsList(breeds: List<String>){
+    LazyColumn(  modifier = Modifier
+        .fillMaxSize()
+        .padding(10.dp),
+        verticalArrangement = Arrangement.spacedBy(5.dp)) {
+        items(breeds) {
+            Box(modifier = Modifier.clickable {
+                //navController.navigate(MainDestinations.DETAIL_ROUTE + "/${dog.id}")
+            }) {
+                ItemList(it)
             }
         }
     }

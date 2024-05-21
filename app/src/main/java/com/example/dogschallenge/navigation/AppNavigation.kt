@@ -17,7 +17,6 @@ object MainDestinations {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-
     NavHost(
         navController = navController,
         startDestination = MainDestinations.HOME_ROUTE) {
